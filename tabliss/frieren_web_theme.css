@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap');
+:root {
+  --bp: #7fc3fd;
+  --bd: rgba(127,195,253,0.85);
+  --bg: rgba(127,195,253,0.4);
+  --bgl: rgba(12,17,34,0.68);
+  --bb: rgba(127,195,253,0.3);
+  --fn: 'JetBrains Mono', monospace;
+  --sw: min(950px, 94vw);
+  --cd: 80s;
+  --cg: linear-gradient(0deg, rgba(10,15,30,0.92), rgba(10,15,30,0.2) 40%, transparent);
+  --w1: url('https://images6.alphacoders.com/136/thumb-1920-1369354.jpeg');
+  --w2: url('https://images7.alphacoders.com/141/thumb-1920-1414665.png');
+  --w3: url('https://images.alphacoders.com/135/thumb-1920-1354383.jpeg');
+  --w4: url('https://images4.alphacoders.com/141/thumb-1920-1414668.png');
+  --w5: url('https://images.alphacoders.com/135/thumb-1920-1358237.jpeg');
+  --w6: url('https://images5.alphacoders.com/141/thumb-1920-1414677.png');
+  --w7: url('https://images8.alphacoders.com/135/thumb-1920-1354384.png');
+  --w8: url('https://images3.alphacoders.com/141/thumb-1920-1414667.png');
+  --w9: url('https://images.alphacoders.com/135/thumb-1920-1357998.jpeg');
+  --w10: url('https://images4.alphacoders.com/141/thumb-1920-1414653.png');
+}
+body, .Widgets, .Time, .Search input, .Links a, .Weather {
+  font-family: var(--fn) !important;
+}
+.Overlay { background: rgba(7,11,22,0.45) !important; }
+.Greeting { display: none !important; }
+
+.Time, .Time * { color: var(--bp) !important; }
+.Time { text-align: center !important; margin-bottom: 1.25rem !important; }
+.Time hr { border: 0 !important; border-top: 2px solid var(--bp) !important; max-width: var(--sw) !important; margin: 0.75rem auto !important; opacity: 0.85 !important; box-shadow: 0 0 8px var(--bg) !important; }
+.Time h3, .Time .date, .Time small {
+  font-size: 1.15rem !important; font-weight: 400 !important; letter-spacing: 0.16em !important;
+  color: var(--bp) !important; text-shadow: 0 0 12px var(--bg), 0 2px 10px rgba(0,0,0,0.8) !important;
+  margin: 0.4rem auto !important; display: block !important; opacity: 0.95 !important;
+}
+.Time h1, .Time .Digital, .Time [class*="digital"] {
+  font-size: 5rem !important; font-weight: 300 !important; letter-spacing: 0.16em !important;
+  color: var(--bp) !important; text-shadow: 0 0 18px var(--bg), 0 2px 14px rgba(0,0,0,0.85) !important;
+  margin: 0 !important; line-height: 1.1 !important;
+}
+.Time span { color: var(--bp) !important; letter-spacing: 0.14em !important; }
+
+.Search {
+  display: flex !important; flex-direction: column !important; align-items: center !important;
+  width: 100% !important; margin: 0 auto 1.6rem !important; position: relative !important;
+}
+.Search::before, .Search::after {
+  content: '' !important; box-sizing: border-box !important;
+  width: var(--sw) !important; height: 340px !important;
+  border: 1px solid var(--bb) !important; border-radius: 16px !important;
+  background-clip: padding-box !important; background-position: center !important;
+  background-size: cover !important; background-repeat: no-repeat !important;
+}
+.Search::before {
+  display: block !important; margin: 0 auto 1.5rem !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.65) !important;
+  animation: xfadeA var(--cd, 80s) infinite !important;
+}
+.Search::after {
+  position: absolute !important; top: 0 !important; left: 0 !important; right: 0 !important;
+  margin: 0 auto !important; pointer-events: none !important;
+  animation: xfadeB var(--cd, 80s) infinite ease-in-out !important;
+}
+.Search form { width: var(--sw) !important; max-width: var(--sw) !important; margin: 0 auto !important; }
+.Search input {
+  width: 100% !important; height: 44px !important; box-sizing: border-box !important;
+  font-size: 0.9rem !important; letter-spacing: 0.08em !important; text-align: center !important;
+  color: #f1f7ff !important; background: var(--bgl) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid var(--bb) !important; border-radius: 9999px !important;
+  padding: 0 1.5rem !important; outline: none !important; box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
+  transition: all 0.25s ease !important;
+}
+.Search input::placeholder { color: var(--bd) !important; opacity: 0.75 !important; letter-spacing: 0.08em !important; }
+.Search input:focus {
+  border-color: var(--bp) !important; box-shadow: 0 0 20px rgba(127,195,253,0.4), 0 4px 20px rgba(0,0,0,0.5) !important;
+  background: rgba(14,21,42,0.85) !important;
+}
+
+.Links {
+  display: inline-grid !important; grid-template-columns: repeat(4, auto) !important;
+  justify-content: center !important; justify-items: start !important;
+  column-gap: 3.5rem !important; row-gap: 0.75rem !important; width: auto !important;
+  max-width: var(--sw) !important; margin: 0 auto !important; padding: 0 !important;
+}
+.Links a {
+  display: inline-flex !important; align-items: center !important;
+  font-size: 0.92rem !important; letter-spacing: 0.06em !important; color: var(--bd) !important;
+  text-decoration: none !important; text-transform: lowercase !important; background: transparent !important;
+  border: none !important; padding: 0.2rem 0 !important; transition: all 0.2s ease !important;
+}
+.Links a img, .Links a svg { display: none !important; }
+.Links a::before { content: '>\00a0' !important; color: var(--bp) !important; font-weight: 600 !important; opacity: 0.85 !important; }
+.Links a:hover { color: #fff !important; transform: translateX(4px) !important; text-shadow: 0 0 10px rgba(127,195,253,0.6) !important; }
+.Links a:hover::before { opacity: 1 !important; color: #fff !important; }
+
+.Weather { color: var(--bp) !important; letter-spacing: 0.06em !important; text-shadow: 0 0 8px var(--bg) !important; }
+.Weather .summary { display: flex !important; align-items: center !important; justify-content: flex-end !important; gap: 0.45rem !important; }
+.Weather .summary svg, .Weather .summary i, .Weather [class*="icon"] { order: -1 !important; margin-right: 0.25rem !important; }
+.Weather .temperature { font-size: 1.6rem !important; font-weight: 400 !important; }
+.Weather .summary span:not(.temperature) { font-size: 0.9rem !important; color: var(--bd) !important; opacity: 0.85 !important; }
+.Weather dt { color: var(--bp) !important; }
+.Weather dd { color: var(--bd) !important; font-size: 0.8rem !important; opacity: 0.8 !important; }
+
+@keyframes xfadeA {
+  0%, 15% { background-image: var(--cg), var(--w1); }
+  15.01%, 35% { background-image: var(--cg), var(--w3); }
+  35.01%, 55% { background-image: var(--cg), var(--w5); }
+  55.01%, 75% { background-image: var(--cg), var(--w7); }
+  75.01%, 95% { background-image: var(--cg), var(--w9); }
+  95.01%, 100% { background-image: var(--cg), var(--w1); }
+}
+
+@keyframes xfadeB {
+  0%, 8.2% { opacity: 0; background-image: var(--cg), var(--w2); }
+  10%, 18.2% { opacity: 1; background-image: var(--cg), var(--w2); }
+  20%, 24% { opacity: 0; background-image: var(--cg), var(--w2); }
+  24.01%, 28.2% { opacity: 0; background-image: var(--cg), var(--w4); }
+  30%, 38.2% { opacity: 1; background-image: var(--cg), var(--w4); }
+  40%, 44% { opacity: 0; background-image: var(--cg), var(--w4); }
+  44.01%, 48.2% { opacity: 0; background-image: var(--cg), var(--w6); }
+  50%, 58.2% { opacity: 1; background-image: var(--cg), var(--w6); }
+  60%, 64% { opacity: 0; background-image: var(--cg), var(--w6); }
+  64.01%, 68.2% { opacity: 0; background-image: var(--cg), var(--w8); }
+  70%, 78.2% { opacity: 1; background-image: var(--cg), var(--w8); }
+  80%, 84% { opacity: 0; background-image: var(--cg), var(--w8); }
+  84.01%, 88.2% { opacity: 0; background-image: var(--cg), var(--w10); }
+  90%, 98.2% { opacity: 1; background-image: var(--cg), var(--w10); }
+  100% { opacity: 0; background-image: var(--cg), var(--w10); }
+}

@@ -1,0 +1,21 @@
+# Windows thumbnail & system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Backup & temporary files
+*.bak
+*.tmp
+*~
+*.swp
+
+# Floorp / Firefox caches
+startupCache/
+cache2/
+
+# IDE & Editor folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

@@ -1,0 +1,61 @@
+{
+  "widget/time": {
+    "display": { "position": "middleCentre" },
+    "id": "frieren-time",
+    "key": "widget/time",
+    "order": 1
+  },
+  "data/frieren-time": {
+    "hour12": true,
+    "mode": "digital",
+    "showDate": true,
+    "showSeconds": true
+  },
+  "widget/search": {
+    "display": { "position": "middleCentre" },
+    "id": "frieren-search",
+    "key": "widget/search",
+    "order": 2
+  },
+  "data/frieren-search": {
+    "engine": "google",
+    "placeholder": "Type to search"
+  },
+  "widget/links": {
+    "display": { "position": "middleCentre" },
+    "id": "frieren-links",
+    "key": "widget/links",
+    "order": 3
+  },
+  "data/frieren-links": {
+    "columns": 4,
+    "links": [
+      { "name": "reddit", "url": "https://www.reddit.com" },
+      { "name": "pinterest", "url": "https://www.pinterest.com" },
+      { "name": "cara", "url": "https://cara.app" },
+      { "name": "cinema", "url": "https://letterboxd.com" },
+      { "name": "netflix", "url": "https://www.netflix.com" },
+      { "name": "youtube", "url": "https://www.youtube.com" },
+      { "name": "plex", "url": "https://app.plex.tv" },
+      { "name": "anime", "url": "https://crunchyroll.com" },
+      { "name": "outlook", "url": "https://outlook.live.com" },
+      { "name": "gmail", "url": "https://mail.google.com" },
+      { "name": "food", "url": "https://ubereats.com" },
+      { "name": "writing", "url": "https://notion.so" },
+      { "name": "workday", "url": "https://workday.com" },
+      { "name": "canvas", "url": "https://canvas.instructure.com" },
+      { "name": "manhwa", "url": "https://asuracomic.net" },
+      { "name": "spotify", "url": "https://open.spotify.com" }
+    ],
+    "visible": true
+  },
+  "widget/css": {
+    "display": { "position": "middleCentre" },
+    "id": "frieren-css",
+    "key": "widget/css",
+    "order": 4
+  },
+  "data/frieren-css": {
+    "input": "@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap');\n\n:root {\n  --gold-primary: #f5cf7b;\n  --gold-dim: rgba(245, 207, 123, 0.75);\n  --gold-glow: rgba(245, 207, 123, 0.35);\n  --gold-glass: rgba(18, 14, 24, 0.68);\n  --gold-border: rgba(245, 207, 123, 0.32);\n  --theme-font: 'JetBrains Mono', monospace;\n  --stage-width: min(760px, 92vw);\n}\n\nbody, .Widgets {\n  font-family: var(--theme-font) !important;\n}\n\n.Overlay {\n  background: rgba(5, 7, 14, 0.45) !important;\n}\n\n.Greeting {\n  display: none !important;\n}\n\n.Time {\n  font-family: var(--theme-font) !important;\n  text-align: center !important;\n  margin-bottom: 1.25rem !important;\n}\n\n.Time .date, .Time [class*=\"date\"], .Time h2, .Time p {\n  font-family: var(--theme-font) !important;\n  font-size: 1.2rem !important;\n  font-weight: 400 !important;\n  letter-spacing: 0.14em !important;\n  color: var(--gold-dim) !important;\n  text-transform: capitalize !important;\n  margin-bottom: 0.25rem !important;\n  text-shadow: 0 0 10px var(--gold-glow) !important;\n}\n\n.Time h1, .Time .Digital h1 {\n  font-family: var(--theme-font) !important;\n  font-size: 5rem !important;\n  font-weight: 300 !important;\n  letter-spacing: 0.16em !important;\n  color: var(--gold-primary) !important;\n  text-shadow: 0 0 16px var(--gold-glow), 0 2px 14px rgba(0, 0, 0, 0.85) !important;\n  margin: 0 !important;\n  line-height: 1.1 !important;\n}\n\n.Search {\n  display: flex !important;\n  flex-direction: column !important;\n  align-items: center !important;\n  width: 100% !important;\n  margin: 0 auto 1.6rem auto !important;\n}\n\n.Search::before {\n  content: 'EARLY SKETCHES \\\\2022  SOUSOU NO FRIEREN' !important;\n  display: flex !important;\n  align-items: flex-end !important;\n  box-sizing: border-box !important;\n  width: var(--stage-width) !important;\n  height: 270px !important;\n  margin: 0 auto 1.5rem auto !important;\n  padding: 1.1rem 1.4rem !important;\n  background: linear-gradient(to top, rgba(14, 10, 18, 0.92) 0%, rgba(14, 10, 18, 0.2) 40%, transparent 100%), url('https://images.alphacoders.com/135/thumb-1920-1354383.jpeg') center/cover no-repeat !important;\n  border: 1px solid var(--gold-border) !important;\n  border-radius: 16px !important;\n  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65) !important;\n  font-family: var(--theme-font) !important;\n  font-size: 0.72rem !important;\n  font-weight: 500 !important;\n  letter-spacing: 0.22em !important;\n  text-transform: uppercase !important;\n  color: rgba(254, 243, 199, 0.88) !important;\n  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95) !important;\n}\n\n.Search form {\n  width: var(--stage-width) !important;\n  max-width: var(--stage-width) !important;\n  margin: 0 auto !important;\n}\n\n.Search input, .Search input[type=\"text\"], .Search input[type=\"search\"] {\n  width: 100% !important;\n  height: 44px !important;\n  box-sizing: border-box !important;\n  font-family: var(--theme-font) !important;\n  font-size: 0.9rem !important;\n  letter-spacing: 0.08em !important;\n  text-align: center !important;\n  color: var(--gold-primary) !important;\n  background: var(--gold-glass) !important;\n  backdrop-filter: blur(14px) !important;\n  -webkit-backdrop-filter: blur(14px) !important;\n  border: 1px solid var(--gold-border) !important;\n  border-radius: 9999px !important;\n  padding: 0 1.5rem !important;\n  outline: none !important;\n  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;\n  transition: all 0.25s ease !important;\n}\n\n.Search input::placeholder {\n  color: rgba(245, 207, 123, 0.5) !important;\n  opacity: 1 !important;\n  letter-spacing: 0.08em !important;\n}\n\n.Search input:focus {\n  border-color: var(--gold-primary) !important;\n  box-shadow: 0 0 20px rgba(245, 207, 123, 0.4), 0 4px 20px rgba(0, 0, 0, 0.5) !important;\n  background: rgba(24, 18, 30, 0.85) !important;\n}\n\n.Links {\n  display: grid !important;\n  grid-template-columns: repeat(4, 1fr) !important;\n  gap: 0.75rem 2rem !important;\n  width: var(--stage-width) !important;\n  max-width: var(--stage-width) !important;\n  margin: 0 auto !important;\n  padding: 0 !important;\n  justify-items: start !important;\n}\n\n.Links a {\n  display: inline-flex !important;\n  align-items: center !important;\n  font-family: var(--theme-font) !important;\n  font-size: 0.92rem !important;\n  letter-spacing: 0.06em !important;\n  color: var(--gold-dim) !important;\n  text-decoration: none !important;\n  text-transform: lowercase !important;\n  background: transparent !important;\n  border: none !important;\n  padding: 0.2rem 0 !important;\n  transition: all 0.2s ease !important;\n}\n\n.Links a img, .Links a svg {\n  display: none !important;\n}\n\n.Links a::before {\n  content: '>\\\\00a0' !important;\n  color: var(--gold-primary) !important;\n  font-weight: 600 !important;\n  opacity: 0.85 !important;\n  transition: all 0.2s ease !important;\n}\n\n.Links a:hover {\n  color: #fffbeb !important;\n  transform: translateX(4px) !important;\n  text-shadow: 0 0 10px rgba(245, 207, 123, 0.5) !important;\n}\n\n.Links a:hover::before {\n  opacity: 1 !important;\n  color: #ffffff !important;\n}\n\n.Weather {\n  font-family: var(--theme-font) !important;\n  color: var(--gold-primary) !important;\n  letter-spacing: 0.06em !important;\n  text-shadow: 0 0 8px var(--gold-glow) !important;\n}\n\n.Weather .temp {\n  font-size: 1.6rem !important;\n  font-weight: 400 !important;\n}\n\n.Weather p, .Weather span {\n  color: var(--gold-dim) !important;\n  font-size: 0.85rem !important;\n}"
+  }
+}

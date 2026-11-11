@@ -1,0 +1,86 @@
+/* =====================================================================
+   Frieren Sidebery Theme (v5 Styles Editor)
+   Designed to match Frieren Fox & Shina-Fox aesthetic.
+   Paste this into Sidebery Settings -> Styles editor.
+   ===================================================================== */
+
+#root.root {
+  --tabs-font: 12px "Cascadia Mono", "JetBrains Mono", "Consolas", monospace;
+  --ctx-menu-font: 12px "Cascadia Mono", "JetBrains Mono", "Consolas", monospace;
+  --tabs-height: 32px;
+  --tabs-inner-gap: 6px;
+  --tabs-border-radius: 7px;
+  --tabs-margin: 3px 6px;
+  --tabs-indent: 14px;
+
+  /* Context Menu */
+  --ctx-menu-min-width: 220px;
+  --ctx-menu-max-width: 400px;
+  --ctx-menu-border-radius: 8px;
+
+  /* Default / Light Palette ("Silver Morning") */
+  --frame-bg: #f6f7fb !important;
+  --frame-fg: #2a2f3d !important;
+  --toolbar-bg: #f6f7fb !important;
+  --toolbar-fg: #2a2f3d !important;
+  --tabs-normal-fg: #4b5263 !important;
+  --tabs-activated-bg: rgba(91, 127, 209, 0.16) !important;
+  --tabs-activated-fg: #3b5cb8 !important;
+  --tabs-activated-shadow: inset 3px 0 0 #5b7fd1 !important;
+  --nav-btn-accent: #5b7fd1 !important;
+  --s-accent: #5b7fd1 !important;
+}
+
+/* Dark Palette ("Night of Shooting Stars") */
+#root[data-frame-color-scheme="dark"],
+#root[data-toolbar-color-scheme="dark"] {
+  --frame-bg: #1b1e28 !important;
+  --frame-fg: #dfe4f1 !important;
+  --toolbar-bg: #1b1e28 !important;
+  --toolbar-fg: #dfe4f1 !important;
+  --tabs-normal-fg: #9ea7bd !important;
+  --tabs-activated-bg: rgba(142, 170, 245, 0.18) !important;
+  --tabs-activated-fg: #8eaaf5 !important;
+  --tabs-activated-shadow: inset 3px 0 0 #8eaaf5 !important;
+  --nav-btn-accent: #8eaaf5 !important;
+  --s-accent: #8eaaf5 !important;
+}
+
+/* Fix text overlapping & title line height */
+.Tab .title {
+  position: relative !important;
+  line-height: normal !important;
+  display: block !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  transition: margin-left 200ms ease;
+}
+
+/* Tab Hover Transitions */
+.Tab {
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.Tab:hover {
+  background-color: rgba(120, 140, 180, 0.1) !important;
+}
+
+.Tab[data-active="true"] {
+  font-weight: 600;
+}
+
+/* Discarded / Unloaded tabs have a subtle ghosted look */
+.Tab[data-discarded="true"] .title {
+  opacity: 0.65;
+}
+
+.Tab:hover .title {
+  margin-left: 3px;
+}
+
+/* Clean up scrollbar inside Sidebery */
+#root.root {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(142, 170, 245, 0.25) transparent;
+}

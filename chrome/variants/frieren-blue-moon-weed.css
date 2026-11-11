@@ -1,0 +1,528 @@
+/* =====================================================================
+   Frieren Fox — a cozy, vertical-tab Floorp theme
+   Inspired by Shina-Fox. Rebuilt for Floorp 12 (Gecko 157+) + Sidebery 5.
+
+   Layout:
+     [logo]      [ ---- centered url pill ---- ]          ( ● ● ● )
+     [Sidebery] [        rounded content         ] [Floorp panel rail]
+
+   Tweak everything from the TOKENS section below.
+   ===================================================================== */
+
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------------
+   1. TOKENS
+   --------------------------------------------------------------------- */
+:root {
+  --fr-font: "Cascadia Mono", "JetBrains Mono", "Consolas", monospace;
+  --fr-font-size: 12px;
+
+  --fr-gap: 8px;                 /* space around every floating card   */
+  --fr-radius: 10px;             /* card corner radius                 */
+  --fr-toolbar-height: 40px;
+
+  --fr-sidebar-collapsed: 44px;  /* Sidebery width when idle           */
+  --fr-sidebar-expanded: 270px;  /* Sidebery width on hover            */
+  --fr-anim: 220ms cubic-bezier(.2, .8, .2, 1);
+
+  --fr-urlbar-width: 620px;
+
+  /* Light — "silver morning" (Frieren's hair & robe) */
+  --fr-bg:         #e8ebf1;
+  --fr-surface:    #f6f7fb;
+  --fr-surface-2:  #dfe3eb;
+  --fr-hover:      rgba(91, 127, 209, .12);
+  --fr-text:       #2a2f3d;
+  --fr-muted:      #7c8498;
+  --fr-accent:     #5b7fd1;        /* blue moon weed   */
+  --fr-accent-soft:rgba(91, 127, 209, .22);
+  --fr-gold:       #bf9b58;        /* staff & earrings */
+  --fr-ruby:       #b8434f;        /* staff gem        */
+  --fr-border:     rgba(42, 47, 61, .10);
+  --fr-shadow:     0 2px 12px rgba(40, 55, 95, .12);
+  --fr-dot:        #c3c8d2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark — "night of shooting stars" */
+    --fr-bg:         #13151c;
+    --fr-surface:    #1b1e28;
+    --fr-surface-2:  #252936;
+    --fr-hover:      rgba(142, 170, 245, .12);
+    --fr-text:       #dfe4f1;
+    --fr-muted:      #8a91a7;
+    --fr-accent:     #8eaaf5;
+    --fr-accent-soft:rgba(142, 170, 245, .22);
+    --fr-gold:       #d9b977;
+    --fr-ruby:       #d4646f;
+    --fr-border:     rgba(255, 255, 255, .07);
+    --fr-shadow:     0 2px 16px rgba(0, 0, 0, .45);
+    --fr-dot:        #4a4f5e;
+  }
+}
+
+/* Map tokens onto Firefox / Floorp variables */
+:root {
+  --toolbar-bgcolor: var(--fr-bg) !important;
+  --toolbar-color: var(--fr-text) !important;
+  --toolbox-bgcolor: var(--fr-bg) !important;
+  --toolbox-textcolor: var(--fr-text) !important;
+  --toolbox-bgcolor-inactive: var(--fr-bg) !important;
+  --toolbox-textcolor-inactive: var(--fr-muted) !important;
+  --lwt-accent-color: var(--fr-bg) !important;
+  --lwt-text-color: var(--fr-text) !important;
+
+  --toolbar-field-background-color: var(--fr-surface-2) !important;
+  --toolbar-field-color: var(--fr-text) !important;
+  --toolbar-field-border-color: transparent !important;
+  --toolbar-field-focus-background-color: var(--fr-surface) !important;
+  --toolbar-field-focus-color: var(--fr-text) !important;
+  --toolbar-field-focus-border-color: var(--fr-accent) !important;
+
+  --toolbarbutton-border-radius: 6px !important;
+  --toolbarbutton-hover-background: var(--fr-hover) !important;
+  --toolbarbutton-active-background: var(--fr-accent-soft) !important;
+
+  --arrowpanel-background: var(--fr-surface) !important;
+  --arrowpanel-color: var(--fr-text) !important;
+  --arrowpanel-border-color: var(--fr-border) !important;
+  --arrowpanel-border-radius: var(--fr-radius) !important;
+  --panel-border-radius: var(--fr-radius) !important;
+
+  --menu-background-color: var(--fr-surface) !important;
+  --menu-color: var(--fr-text) !important;
+  --menu-border-color: var(--fr-border) !important;
+  --menuitem-hover-background-color: var(--fr-hover) !important;
+
+  --sidebar-background-color: var(--fr-surface) !important;
+  --sidebar-text-color: var(--fr-text) !important;
+  --sidebar-border-color: transparent !important;
+
+  --panel-sidebar-background-color: var(--fr-surface) !important;
+
+  --tab-selected-bgcolor: var(--fr-surface) !important;
+  --chrome-content-separator-color: transparent !important;
+  --focus-outline-color: var(--fr-accent) !important;
+  --urlbarView-highlight-background: var(--fr-accent) !important;
+  --urlbarView-highlight-color: var(--fr-surface) !important;
+  --toolbarbutton-icon-fill-attention: var(--fr-accent) !important;
+}
+
+/* ---------------------------------------------------------------------
+   2. GLOBAL
+   --------------------------------------------------------------------- */
+:root, :root * {
+  font-family: var(--fr-font) !important;
+}
+#navigator-toolbox, menupopup, panel {
+  font-size: var(--fr-font-size) !important;
+}
+
+:root,
+#navigator-toolbox,
+#browser,
+#appcontent {
+  background-color: var(--fr-bg) !important;
+  background-image: none !important;
+}
+
+#navigator-toolbox {
+  border-bottom: none !important;
+  box-shadow: none !important;
+  position: relative !important;
+}
+
+#nav-bar,
+#PersonalToolbar {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::selection { background-color: var(--fr-accent-soft); }
+
+/* ---------------------------------------------------------------------
+   3. HIDE HORIZONTAL TABS  (Sidebery handles tabs)
+      The window buttons in this toolbar are kept & repositioned.
+   --------------------------------------------------------------------- */
+#TabsToolbar {
+  position: static !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+#TabsToolbar > .toolbar-items,
+#TabsToolbar > .titlebar-spacer,
+#TabsToolbar > .private-browsing-indicator-with-label,
+#TabsToolbar > .private-browsing-indicator-button,
+#TabsToolbar > .content-analysis-indicator {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------------
+   4. WINDOW BUTTONS — three soft dots, colored on hover
+   --------------------------------------------------------------------- */
+#TabsToolbar .titlebar-buttonbox-container {
+  display: flex !important;
+  visibility: visible !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  height: var(--fr-toolbar-height) !important;
+  align-items: center !important;
+  padding-inline: 6px 14px !important;
+  z-index: 10 !important;
+}
+#TabsToolbar .titlebar-buttonbox { align-items: center !important; }
+
+#TabsToolbar .titlebar-button {
+  appearance: none !important;
+  width: 12px !important;
+  min-width: 12px !important;
+  height: 12px !important;
+  min-height: 12px !important;
+  padding: 0 !important;
+  margin: 0 0 0 9px !important;
+  border-radius: 50% !important;
+  background-color: var(--fr-dot) !important;
+  transition: background-color 250ms ease, transform 150ms ease !important;
+}
+#TabsToolbar .titlebar-button > .toolbarbutton-icon {
+  opacity: 0 !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+#TabsToolbar .titlebar-buttonbox-container:hover .titlebar-min     { background-color: var(--fr-accent) !important; }
+#TabsToolbar .titlebar-buttonbox-container:hover .titlebar-max,
+#TabsToolbar .titlebar-buttonbox-container:hover .titlebar-restore { background-color: var(--fr-gold) !important; }
+#TabsToolbar .titlebar-buttonbox-container:hover .titlebar-close   { background-color: var(--fr-ruby) !important; }
+#TabsToolbar .titlebar-button:hover { transform: scale(1.2); }
+
+:root:-moz-window-inactive #TabsToolbar .titlebar-button { opacity: .6 !important; }
+:root[inFullscreen] #TabsToolbar .titlebar-buttonbox-container { display: none !important; }
+
+/* ---------------------------------------------------------------------
+   5. NAV BAR — logo · centered url pill · auto-hiding buttons
+   --------------------------------------------------------------------- */
+#nav-bar {
+  min-height: var(--fr-toolbar-height) !important;
+  padding-inline: 0 96px !important;     /* room for the window dots */
+  -moz-window-dragging: drag !important;
+}
+#nav-bar toolbarbutton,
+#nav-bar toolbaritem,
+#urlbar-container {
+  -moz-window-dragging: no-drag !important;
+}
+
+/* Blue-moon-weed logo */
+#nav-bar::before {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  align-self: center;
+  width: 22px;
+  height: 22px;
+  margin-inline: 14px 10px;
+  background: url("frieren/logo.svg") center / contain no-repeat;
+  filter: drop-shadow(0 1px 2px rgba(60, 90, 180, .35));
+}
+
+/* Buttons fade in when the bar is hovered.
+   Delete this block if you prefer them always visible. */
+#nav-bar-customization-target > :not(#urlbar-container, toolbarspring, #vertical-spacer),
+#nav-bar > #PanelUI-button,
+#nav-bar > #nav-bar-overflow-button,
+#nav-bar > #unified-extensions-button {
+  opacity: 0;
+  transition: opacity 500ms ease !important;
+}
+#nav-bar:hover #nav-bar-customization-target > :not(#urlbar-container, toolbarspring, #vertical-spacer),
+#nav-bar:hover > #PanelUI-button,
+#nav-bar:hover > #nav-bar-overflow-button,
+#nav-bar:hover > #unified-extensions-button,
+#nav-bar :is(toolbarbutton, toolbaritem)[open],
+#nav-bar :is(toolbarbutton, toolbaritem):focus-within {
+  opacity: 1;
+  transition-duration: 180ms !important;
+}
+
+#nav-bar .toolbarbutton-1 { --toolbarbutton-inner-padding: 6px !important; }
+
+/* Centered URL pill */
+#urlbar-container {
+  flex: 0 1 var(--fr-urlbar-width) !important;
+  width: var(--fr-urlbar-width) !important;
+  max-width: var(--fr-urlbar-width) !important;
+  margin-inline: auto !important;
+  --urlbar-container-height: 32px !important;
+  --urlbar-min-height: 28px !important;
+}
+
+#urlbar .urlbar-background,
+#urlbar-background {
+  background-color: var(--fr-surface-2) !important;
+  border: 1px solid var(--fr-border) !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease !important;
+}
+#urlbar:hover .urlbar-background,
+#urlbar:hover #urlbar-background {
+  border-color: var(--fr-accent-soft) !important;
+}
+#urlbar[focused] .urlbar-background,
+#urlbar[focused] #urlbar-background {
+  background-color: var(--fr-surface) !important;
+  border-color: var(--fr-accent) !important;
+  box-shadow: 0 0 0 3px var(--fr-accent-soft), var(--fr-shadow) !important;
+}
+/* Rounder dropdown when the results are open */
+#urlbar[breakout][breakout-extend] .urlbar-background,
+#urlbar[breakout][breakout-extend] #urlbar-background,
+#urlbar[open] .urlbar-background {
+  border-radius: 14px !important;
+}
+
+#urlbar:not([focused]) .urlbar-input,
+#urlbar:not([focused]) #urlbar-input {
+  text-align: center !important;
+}
+#urlbar .urlbar-input,
+#urlbar-input {
+  color: var(--fr-text) !important;
+}
+#urlbar .urlbar-input::placeholder,
+#urlbar-input::placeholder {
+  color: var(--fr-muted) !important;
+  opacity: 1 !important;
+}
+
+#identity-box > box,
+#tracking-protection-icon-container,
+#page-action-buttons > * {
+  border-radius: 999px !important;
+}
+
+/* Bookmarks toolbar (if you enable it) */
+#PersonalToolbar {
+  padding-inline: calc(var(--fr-gap) + 4px) !important;
+}
+
+/* ---------------------------------------------------------------------
+   6. CONTENT — a floating rounded card
+   --------------------------------------------------------------------- */
+#browser {
+  padding-bottom: var(--fr-gap) !important;
+}
+
+#tabbrowser-tabbox {
+  margin-inline: var(--fr-gap) !important;
+  border-radius: var(--fr-radius) !important;
+  overflow: clip !important;
+  outline: none !important;
+  box-shadow: var(--fr-shadow), 0 0 0 1px var(--fr-border) !important;
+  background: var(--fr-surface) !important;
+}
+#tabbrowser-tabpanels,
+.browserContainer,
+.browserStack {
+  background: transparent !important;
+}
+
+/* Status (link hover) bubble */
+#statuspanel-label {
+  background-color: var(--fr-surface) !important;
+  color: var(--fr-text) !important;
+  border: 1px solid var(--fr-border) !important;
+  border-radius: 8px !important;
+  margin: 0 0 6px 6px !important;
+  padding: 3px 8px !important;
+}
+
+/* Find bar */
+findbar {
+  background: var(--fr-surface) !important;
+  border-top: 1px solid var(--fr-border) !important;
+}
+
+/* No card framing for fullscreen video */
+:root[inDOMFullscreen] #browser,
+:root[inFullscreen] #browser { padding: 0 !important; }
+:root[inDOMFullscreen] #tabbrowser-tabbox {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Unused native splitters / AI pane */
+#ai-window-splitter[collapsed],
+#ai-window-box[collapsed] { display: none !important; }
+
+/* ---------------------------------------------------------------------
+   7. LEFT SIDEBAR — Sidebery as a floating card that expands on hover
+   --------------------------------------------------------------------- */
+
+/* Hide all Firefox/Floorp built-in sidebar headers & switchers */
+#sidebar-container,
+#sidebar-launcher-splitter,
+#sidebar-header,
+sidebar-header,
+.sidebar-header,
+#sidebar-box > #sidebar-header,
+#sidebar-box:not([hidden]) > #sidebar-header {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  overflow: hidden !important;
+}
+
+#sidebar-box {
+  position: relative !important;
+  z-index: 10 !important;
+  margin: 0 0 0 var(--fr-gap) !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: var(--fr-radius) !important;
+  overflow: clip !important;
+  background: var(--fr-surface) !important;
+  box-shadow: var(--fr-shadow), 0 0 0 1px var(--fr-border) !important;
+
+  /* auto-hide: narrow by default */
+  width: var(--fr-sidebar-collapsed) !important;
+  min-width: var(--fr-sidebar-collapsed) !important;
+  max-width: var(--fr-sidebar-collapsed) !important;
+  transition: width var(--fr-anim), min-width var(--fr-anim), max-width var(--fr-anim),
+              margin var(--fr-anim), box-shadow var(--fr-anim) !important;
+}
+#sidebar-box:hover {
+  width: var(--fr-sidebar-expanded) !important;
+  min-width: var(--fr-sidebar-expanded) !important;
+  max-width: var(--fr-sidebar-expanded) !important;
+  /* overlay the page smoothly instead of shifting content */
+  margin-inline-end: calc(var(--fr-sidebar-collapsed) - var(--fr-sidebar-expanded)) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .3), 0 0 0 1px var(--fr-border) !important;
+}
+#sidebar-box .sidebar-browser-stack,
+#sidebar {
+  min-width: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--fr-radius) !important;
+}
+#sidebar-splitter {
+  display: none !important;
+}
+
+:root[inFullscreen] #sidebar-box { display: none !important; }
+
+/* Sidebar on the right instead? (Sidebery ⇢ "Move sidebar to right")  */
+#sidebar-box[sidebar-positionend] {
+  margin: 0 var(--fr-gap) 0 0 !important;
+}
+#sidebar-box[sidebar-positionend]:hover {
+  margin-inline-end: var(--fr-gap) !important;
+  margin-inline-start: calc(var(--fr-sidebar-collapsed) - var(--fr-sidebar-expanded)) !important;
+}
+
+/* ---------------------------------------------------------------------
+   8. RIGHT RAIL — Floorp Panel Sidebar
+   --------------------------------------------------------------------- */
+#panel-sidebar-select-box {
+  background: var(--fr-surface) !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: var(--fr-radius) !important;
+  margin: 0 var(--fr-gap) 0 0 !important;
+  padding-block: 4px !important;
+  box-shadow: var(--fr-shadow), 0 0 0 1px var(--fr-border) !important;
+  align-items: center !important;
+  scrollbar-width: none !important;
+}
+#panel-sidebar-select-box .panel-sidebar-panel,
+#panel-sidebar-select-box .panel-sidebar-icon,
+#panel-sidebar-select-box toolbarbutton {
+  border-radius: 7px !important;
+  box-shadow: none !important;
+  color: var(--fr-text) !important;
+  fill: currentColor !important;
+  transition: background-color 150ms ease !important;
+}
+#panel-sidebar-select-box .panel-sidebar-panel:hover,
+#panel-sidebar-select-box toolbarbutton:hover {
+  background-color: var(--fr-hover) !important;
+  box-shadow: none !important;
+}
+#panel-sidebar-select-box .panel-sidebar-panel[data-checked="true"] {
+  background-color: var(--fr-accent-soft) !important;
+  color: var(--fr-accent) !important;
+  box-shadow: inset 2px 0 0 var(--fr-accent) !important;
+}
+
+/* Opened web panel */
+#panel-sidebar-box {
+  background: var(--fr-surface) !important;
+  border-radius: var(--fr-radius) !important;
+  overflow: clip !important;
+  margin-inline-end: var(--fr-gap) !important;
+  box-shadow: var(--fr-shadow), 0 0 0 1px var(--fr-border) !important;
+}
+#panel-sidebar-header {
+  background: var(--fr-surface) !important;
+  background-image: none !important;
+  border-bottom: 1px solid var(--fr-border) !important;
+}
+#panel-sidebar-splitter {
+  border: none !important;
+  background: transparent !important;
+  width: 4px !important;
+  min-width: 4px !important;
+  margin-inline: -4px 0 !important;
+}
+
+/* ---------------------------------------------------------------------
+   9. MENUS & POPUPS
+   --------------------------------------------------------------------- */
+menupopup,
+panel {
+  --panel-background: var(--fr-surface) !important;
+  --panel-color: var(--fr-text) !important;
+  --panel-border-color: var(--fr-border) !important;
+  --panel-border-radius: var(--fr-radius) !important;
+  --panel-shadow-margin: 8px;
+}
+menupopup > menuitem,
+menupopup > menu {
+  border-radius: 6px !important;
+}
+menupopup > menuitem[_moz-menuactive],
+menupopup > menu[_moz-menuactive] {
+  background-color: var(--fr-hover) !important;
+  color: var(--fr-text) !important;
+}
+
+.urlbarView {
+  --urlbarView-separator-color: var(--fr-border) !important;
+}
+.urlbarView-row[selected] > .urlbarView-row-inner,
+.urlbarView-row-inner[selected] {
+  background-color: var(--fr-accent) !important;
+  color: var(--fr-surface) !important;
+  border-radius: 8px !important;
+}
+
+/* Thin, accent-tinted scrollbars in chrome popups */
+* { scrollbar-color: var(--fr-accent-soft) transparent; }
+

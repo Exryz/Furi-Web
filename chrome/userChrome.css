@@ -1,0 +1,1320 @@
+@charset "UTF-8";
+
+/*
+ * Shina Fox Community Edition
+ * Original project and design: https://github.com/Shina-SG/Shina-Fox
+ * Community continuation: https://github.com/SetyVII/Shina-Fox-Comunnity-Edition
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Compatibility baseline: Floorp 12.16.4 / Gecko 153
+ *
+ * This file is intentionally scoped to the main browser window. That keeps
+ * the universal font rule and the browser-only selectors away from Library,
+ * DevTools, source-view, and other chrome documents.
+ */
+@-moz-document url("chrome://browser/content/browser.xhtml") {
+
+/* GLOBAL SETTING */
+
+:root {
+  --shina-canvas-background: #e6e6e6;
+  --shina-urlbar-background: #d6d6d6;
+  --shina-surface-border: rgba(51, 51, 51, 0.1);
+  --shina-surface-border-hover: rgba(51, 51, 51, 0.6);
+  --shina-surface-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+  --shina-surface-shadow-soft: 0 0 10px 5px rgba(255, 255, 255, 0.2);
+  --shina-toolbox-top-padding: 10px;
+  --shina-frame-top-gap: 6px;
+  --shina-frame-edge-gap: 15px;
+
+  /* Backward-compatible names used by older sections of the theme. */
+  --firefoxcss-top-bar-border-bottom-size: 0px;
+  --firefoxcss-top-bar-border-bottom-color: transparent;
+  --firefoxcss-item-bg-color: color-mix(in srgb, currentColor 8%, transparent);
+  --firefoxcss-urlbar-zoom-button: color-mix(in srgb, currentColor 15%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shina-canvas-background: #1a1a1a;
+    --shina-urlbar-background: #2a2a2a;
+    --shina-surface-border: rgba(204, 204, 204, 0.3);
+    --shina-surface-border-hover: rgba(204, 204, 204, 0.6);
+    --shina-surface-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    --shina-surface-shadow-soft: 0 0 10px 5px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Fonts */
+
+* {
+  font-family: monospace !important;
+}
+
+/*------------------------------------------------*/
+/* Background Color */
+
+#navigator-toolbox,
+#sidebar-box,
+#tabbrowser-tabbox,
+#tabbrowser-tabpanels,
+#browser,
+#panel-sidebar-box,
+#panel-sidebar-select-box {
+  background-color: var(--shina-canvas-background) !important;
+}
+
+#navigator-toolbox  {
+  background: var(--shina-canvas-background) !important;
+}
+
+:root:not([inFullscreen]):not([inDOMFullscreen]) #navigator-toolbox {
+  padding-top: var(--shina-toolbox-top-padding) !important;
+}
+
+#PersonalToolbar,
+#nav-bar  {
+  background: transparent !important;
+}
+
+/*============================================================================================*/
+/* NAV BAR */
+
+/* Auto hide icons on the Nav Bar */
+#nav-bar > #nav-bar-customization-target *:not(#urlbar-container):not(#urlbar-container *),
+#PanelUI-button {
+    opacity: 0 !important;
+    transition: opacity 0.7s ease !important;
+}
+
+#nav-bar:hover > #nav-bar-customization-target *:not(#urlbar-container):not(#urlbar-container *),
+#nav-bar:hover > #PanelUI-button  {
+    opacity: 1 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+/*------------------------------------------------*/
+/* Remove line between website content and top bar */
+
+#navigator-toolbox {
+  border-bottom: var(--firefoxcss-top-bar-border-bottom-size) solid
+    var(--firefoxcss-top-bar-border-bottom-color) !important;
+}
+
+/*------------------------------------------------*/
+/* Remove the all tab and new tab button */
+#TabsToolbar :is(#alltabs-button, #tabs-newtab-button, #new-tab-button) {
+  display: none !important;
+}
+
+/*------------------------------------------------*/
+/* Remove the 3 dots from Alt Key */
+
+#titlebar #toolbar-menubar .titlebar-buttonbox-container{
+  display: none !important;
+}
+
+/*------------------------------------------------*/
+/* Move menu buttons to the left side */
+
+#nav-bar #PanelUI-button #PanelUI-menu-button {
+  padding-right: 2px !important;
+  padding-left: 4px !important;
+}
+
+#nav-bar #PanelUI-button {
+  -moz-box-ordinal-group: 0 !important;
+		order: 0 !important;
+}
+
+toolbar:not([customizing]) > #nav-bar-overflow-button {
+  -moz-box-ordinal-group: 1 !important;
+	order: 1 !important;
+}
+
+toolbar:not([customizing]) > #nav-bar-customization-target {
+  -moz-box-ordinal-group: 2 !important;
+		order: 2 !important;
+}
+
+#appMenu-popup {
+  margin-inline: -244px !important;
+}
+
+#widget-overflow {
+	margin-inline: -320px !important;
+  }
+
+/*------------------------------------------------*/
+/* Macos Style window buttons */
+
+:root {
+  --firefoxcss-control-buttons-margin: 95px;
+}
+
+#navigator-toolbox #nav-bar {
+  padding-right: calc(var(--firefoxcss-control-buttons-margin) - 10px) !important;
+}
+
+/*
+ * The controls below are taken out of normal flow. Reserve the same physical
+ * right-side space in Floorp's tab-strip content so its workspace button (and
+ * any other tab-strip widget) cannot slide underneath them.
+ */
+:root:not([inFullscreen]):not([inDOMFullscreen])
+  #TabsToolbar
+  > .toolbar-items {
+  min-width: 0 !important;
+  margin-right: var(--firefoxcss-control-buttons-margin) !important;
+}
+
+:root:not([inFullscreen]):not([inDOMFullscreen]) #navigator-toolbox
+  #TabsToolbar
+  .titlebar-buttonbox-container {
+  visibility: visible !important;
+  display: flex !important;
+  position: absolute !important;
+  top: 2px !important;
+  left: unset !important;
+  right: 0 !important;
+  padding-top: 10px !important;
+  padding-bottom: 2px !important;
+  padding-right: 8px  !important;
+  padding-left: 2px !important;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-button {
+	width: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  height: 14px !important;
+}
+
+:root:is([inFullscreen], [inDOMFullscreen])
+  #navigator-toolbox
+  #TabsToolbar
+  .titlebar-buttonbox-container {
+	padding-top:4px !important;
+	padding-bottom: 4px !important;
+	padding-right: 8px  !important;
+	padding-left: 4px  !important;
+	margin: 0 !important;
+	align-items: center !important;
+}
+
+:root:-moz-window-inactive:not([customizing])
+  :is(.titlebar-buttonbox)
+  > toolbarbutton:not(:hover) {
+  opacity: 0.65 !important;
+}
+
+:is(.titlebar-buttonbox) .toolbarbutton-icon {
+  opacity: 1 !important;
+  appearance: none !important;
+}
+
+#TabsToolbar .titlebar-button > .toolbarbutton-icon {
+  width: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  height: 14px !important;
+  stroke: none !important;
+}
+
+#TabsToolbar .titlebar-buttonbox {
+  margin-right: 2px !important;
+  margin-left: 0px !important;
+}
+
+#TabsToolbar .titlebar-button {
+  background-color: transparent !important;
+  appearance: none !important;
+  padding: 0px !important;
+  margin: 0 !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+#TabsToolbar .titlebar-close {
+  appearance: none !important;
+  -moz-box-ordinal-group: 2 !important;
+	order:2 !important;
+}
+
+#TabsToolbar .titlebar-min {
+  appearance: none !important;
+  -moz-box-ordinal-group: 0 !important;
+	order:0 !important;
+}
+
+#TabsToolbar .titlebar-max,
+#TabsToolbar .titlebar-restore {
+  appearance: none !important;
+  -moz-box-ordinal-group: 1 !important;
+	order:1!important;
+}
+
+#TabsToolbar .titlebar-buttonbox-container:not(:hover) .titlebar-buttonbox .titlebar-button {
+  background-color: hsla(0, 0%, 65%, 1)  !important;
+  transition:  background-color 400ms ease 400ms  !important;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-button > .toolbarbutton-icon {
+  list-style-image: none  !important;
+   margin: 0px !important;
+  padding: 0px !important;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-buttonbox .titlebar-button {
+  border-radius: 50% !important;
+  margin-left: 8px !important;
+  position: relative !important;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-min{
+  background-color: #fac536 !important;
+	overflow: hidden !important;
+  transition:  background-color 200ms ease !important;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-min::before{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70%;
+	height: 2px;
+	opacity: 0;
+	background:  rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+	transition: 200ms;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-min:hover::before{
+	opacity: 1;
+	top: 50%;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-max,
+#TabsToolbar .titlebar-buttonbox-container .titlebar-restore{
+	background: #39ea49 !important;
+	overflow: hidden !important;
+   transition:  background-color 200ms ease !important;
+}
+#TabsToolbar .titlebar-buttonbox-container .titlebar-max::before{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 55%;
+	height: 55%;
+	opacity: 0;
+	background:  rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+	transition: 200ms;
+}
+#TabsToolbar .titlebar-buttonbox-container .titlebar-max::after{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-45deg);
+	width: 3px;
+	height: 80%;
+	opacity: 0;
+	background: #39ea49;
+	transition: 200ms;
+}
+#TabsToolbar .titlebar-buttonbox-container .titlebar-max:hover::before,
+#TabsToolbar .titlebar-buttonbox-container .titlebar-max:hover::after{
+	opacity: 1;
+	top: 50%;
+}
+#TabsToolbar .titlebar-buttonbox-container .titlebar-close{
+	background: #f25056 !important;
+	overflow: hidden !important;
+   transition:  background-color 200ms ease !important;
+}
+#TabsToolbar .titlebar-buttonbox-container .titlebar-close::before{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-45deg);
+	width: 2px;
+	height: 9px;
+	opacity: 0;
+	background:  rgba(0, 0, 0, 0.65);
+  border-radius: 1px;
+	transition: 200ms;
+}
+#TabsToolbar .titlebar-buttonbox-container .titlebar-close::after{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(45deg);
+	width: 2px;
+	height: 9px;
+  opacity: 0;
+	background: rgba(0, 0, 0, 0.65);
+   border-radius: 1px;
+	transition: 200ms;
+
+}
+#TabsToolbar .titlebar-buttonbox-container .titlebar-close:hover::before,
+#TabsToolbar .titlebar-buttonbox-container .titlebar-close:hover::after{
+	opacity: 1;
+	top: 50%;
+}
+
+  #TabsToolbar .titlebar-buttonbox-container .titlebar-restore:before {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 8px;
+	height: 8px;
+	opacity: 0;
+	background: rgba(0, 0, 0, 0.65);
+  border-radius: 2px;
+	transition:200ms;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-restore:after{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 4px;
+	height: 4px;
+	opacity: 0;
+	background: #39ea49;
+   border-radius: 0px;
+	transition: 200ms;
+}
+
+#TabsToolbar .titlebar-buttonbox-container .titlebar-restore:hover::before,
+#TabsToolbar .titlebar-buttonbox-container .titlebar-restore:hover::after{
+	opacity: 1;
+	top: 50%;
+}
+
+#navigator-toolbox #TabsToolbar .titlebar-buttonbox-container {
+  -moz-box-ordinal-group: 1 !important;
+}
+
+@media only screen and (max-width: 370px) {
+  :root#main-window:not([inFullscreen]):not([inDOMFullscreen]) #navigator-toolbox
+    #TabsToolbar
+    .titlebar-buttonbox-container {
+    visibility: visible !important;
+		position: relative !important;
+		padding-top: 4px !important;
+		padding-bottom: 2px !important;
+		padding-right: 8px  !important;
+		padding-left: 2px !important;
+  }
+
+  :root#main-window:not([inFullscreen]):not([inDOMFullscreen])
+    #navigator-toolbox
+    #nav-bar {
+    padding-right: initial !important;
+  }
+
+  /* At this width the controls return to normal flow, so no reserve is needed. */
+  :root#main-window:not([inFullscreen]):not([inDOMFullscreen])
+    #TabsToolbar
+    > .toolbar-items {
+    margin-right: 0 !important;
+  }
+}
+
+/*------------------------------------------------*/
+/* Make Tab Bar join with URL Bar on the left */
+
+:root {
+    --tab-border-radius: 3px !important;
+    --NavbarWidth: 2;
+    --TabsHeight: 36;
+    --TabsBorder: 8;
+    --NavbarHeightSmall: calc(var(--TabsHeight) + var(--TabsBorder))
+}
+
+#nav-bar {
+    margin-top:calc(var(--TabsHeight) * -1px - var(--TabsBorder) * 1px)!important;
+    height: calc((var(--TabsHeight) * 1px + var(--TabsBorder) * 1px) + 0px)
+}
+
+
+
+#nav-bar {
+    margin-left: 35px !important;
+}
+
+#urlbar-container {
+    min-width: 0px !important;
+    flex: auto !important;
+}
+
+
+@media screen and (max-width: 700px) {
+    #TabsToolbar {
+        margin-right: 0 !important;
+    }
+    #nav-bar {
+        margin-left: 0 !important;
+    }
+}
+
+/* The tabs-hidden state moved from #nav-bar to #navigator-toolbox. */
+#navigator-toolbox:not([tabs-hidden]) #nav-bar {
+  position: static !important;
+}
+
+#nav-bar-customization-target,
+#PanelUI-button {
+  position: relative  !important;
+  z-index: 3  !important;
+}
+
+/*------------------------------------------------*/
+/* Make active tab to hidden tab */
+
+.tabbrowser-tab:not([selected="true"]):not([visuallyselected]),
+[part="overflow-start-indicator"],
+[part="overflow-end-indicator"],
+#scrollbutton-up,
+#scrollbutton-down,
+#TabsToolbar .titlebar-spacer,
+.tabbrowser-tab:is([selected="true"], [visuallyselected]) .tab-text,
+.tabbrowser-tab:is([selected="true"], [visuallyselected]) .tab-close-button,
+.tab-line,
+.tab-throbber {
+    display: none !important;
+}
+
+.tabbrowser-tab:is([selected="true"], [visuallyselected]) {
+    min-width: 37px !important;
+    max-width: 37px !important;
+}
+
+tab,
+.tabbrowser-tab {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+#tabbrowser-tabs .tabbrowser-tab .tab-background {
+    background: transparent !important;
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Firefox 153 paints a separate active/hover surface around split-view tabs. */
+#tabbrowser-tabs tab-split-view-wrapper,
+#tabbrowser-tabs tab-split-view-wrapper:is([hasactivetab], :hover) {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+/*
+ * Only the active split tab remains visible in this theme. Firefox still gives
+ * it two-column split padding and clips overflow, which trims the 32px logo on
+ * hover. Give that visible tab a stable, unclipped icon box instead.
+ */
+#tabbrowser-tabs
+  tab-split-view-wrapper
+  > .tabbrowser-tab:is([selected="true"], [visuallyselected]) {
+    padding-inline: 0 !important;
+    overflow: visible !important;
+}
+
+#tabbrowser-tabs
+  tab-split-view-wrapper
+  > .tabbrowser-tab:is([selected="true"], [visuallyselected])
+  > .tab-stack,
+#tabbrowser-tabs
+  tab-split-view-wrapper
+  > .tabbrowser-tab:is([selected="true"], [visuallyselected])
+  > .tab-stack
+  > .tab-content,
+#tabbrowser-tabs
+  tab-split-view-wrapper
+  > .tabbrowser-tab:is([selected="true"], [visuallyselected])
+  .tab-icon-stack {
+    overflow: visible !important;
+}
+
+#tabbrowser-tabs
+  tab-split-view-wrapper
+  > .tabbrowser-tab:is([selected="true"], [visuallyselected])
+  > .tab-stack
+  > .tab-content {
+    padding-inline: 0 !important;
+    justify-content: center !important;
+}
+
+#tabbrowser-tabs
+  tab-split-view-wrapper
+  > .tabbrowser-tab:is([selected="true"], [visuallyselected])
+  .tab-icon-stack {
+    flex: 0 0 32px !important;
+    width: 32px !important;
+    min-width: 32px !important;
+    height: 32px !important;
+}
+
+.tab-icon-image  {
+    height: 32px !important;
+    width: 32px !important;
+    border-radius: 10px !important;
+ }
+
+/* Firefox hides favicon images without its native `fadein` attribute. The
+ * replacement artwork must remain visible even on pages with no favicon. */
+.tabbrowser-tab:is([selected="true"], [visuallyselected]) .tab-icon-image {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    object-fit: contain !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tab-icon-image {
+    content: url('dark.png') !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .tab-icon-image {
+    content: url('light.png') !important;
+  }
+}
+
+
+/*------------------------------------------------*/
+/* Hide all buttons in active tab context menu except for split tab and extensions */
+
+#main-window #context_openANewTab,
+#main-window #context_reloadTab,
+#main-window #context_toggleMuteTab,
+#main-window #context_playTab,
+#main-window #context_pinTab,
+#main-window #context_duplicateTab,
+#main-window #context_bookmarkTab,
+#main-window #context_moveTabOptions,
+#main-window #context_reopenInContainer,
+#main-window #context_toggleToPrivateContainer,
+#main-window #context_selectAllTabs,
+#main-window #context_closeTab,
+#main-window #context_closeTabOptions,
+#main-window #context_undoCloseTab,
+#context_MoveTabToOtherWorkspace,
+#main-window #tabContextMenu menuseparator {
+    display: none !important;
+}
+
+
+
+/*============================================================================================*/
+/* EXTENSION */
+
+/* Make extensions looks minimal */
+
+#unified-extensions-view #unified-extensions-manage-extensions .toolbarbutton-text::before {
+    content: "• • •";
+    font-size: 15px;
+    visibility: visible !important;
+    display: block;
+    text-align: center;
+}
+
+#unified-extensions-panel #unified-extensions-view {
+    width: 100% !important;
+}
+
+#unified-extensions-view{
+    --uei-icon-size: 22px;
+    --firefoxcss-number-of-extensions-in-a-row: 4;
+}
+
+
+#unified-extensions-view .unified-extensions-item-menu-button.subviewbutton,
+#unified-extensions-view .unified-extensions-item-action-button .unified-extensions-item-contents{
+    display:none !important;
+}
+
+#unified-extensions-view .panel-subview-body {
+    padding: 10px !important;
+}
+
+#unified-extensions-view .unified-extensions-item .unified-extensions-item-icon,
+#unified-extensions-view .unified-extensions-item .toolbarbutton-badge-stack {
+    margin-inline-end: 0px !important;
+}
+
+#unified-extensions-view #overflowed-extensions-list,
+#unified-extensions-view #unified-extensions-area,
+#unified-extensions-view .unified-extensions-list {
+    display: grid !important;
+    grid-template-columns: repeat(var(--firefoxcss-number-of-extensions-in-a-row),auto);
+    justify-items: start !important;
+    align-items: start !important;
+}
+
+
+
+/*============================================================================================*/
+/* URL BAR */
+
+/* Make text in URL bar in the center */
+
+#nav-bar {
+    display: flex;
+    justify-content: center;
+}
+
+#urlbar-container {
+    flex: 1 1 auto !important;
+    width: 100%;
+    max-width: min(1000px, calc(100vw - 96px)) !important;
+    min-width: 0 !important;
+    margin-inline: auto !important;
+}
+
+/*
+ * Gecko 153 renders the expanded address bar as a top-layer popover and writes
+ * a toolbar-relative inline `top`. The unified search switcher deliberately
+ * closes that normal urlbar view before showing its own XUL panel, so preserve
+ * the same geometry while either surface is open. The width remains responsive
+ * so neither state can run off narrow windows.
+ */
+:is(
+  #urlbar[breakout][breakout-extend]:popover-open,
+  #urlbar:has(
+      :is(.searchmode-switcher-panel-list[open], .searchmode-switcher[open])
+    )
+) {
+  top: clamp(96px, 30vh, 360px) !important;
+  left: 50% !important;
+  right: auto !important;
+  translate: -50% 0 !important;
+  transform-origin: center top !important;
+  opacity: 0.97;
+  margin-inline: 0 !important;
+  width: min(
+    calc(var(--urlbar-width) + 2 * var(--urlbar-margin-inline)),
+    calc(100vw - 48px)
+  ) !important;
+}
+
+/*
+ * Once the normal urlbar popover closes, `top` would otherwise become relative
+ * to the toolbar again. Pin the urlbar to the viewport for the lifetime of the
+ * unified search menu, including its opening and closing animation.
+ */
+#urlbar:has(
+    :is(.searchmode-switcher-panel-list[open], .searchmode-switcher[open])
+  ) {
+  position: fixed !important;
+}
+
+@keyframes shina-urlbar-center-in {
+  from {
+    opacity: 0.72;
+    transform: translateY(clamp(-300px, -25vh, -72px)) scale(0.985);
+  }
+
+  to {
+    opacity: 0.97;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #urlbar[breakout][breakout-extend]:popover-open {
+    animation: shina-urlbar-center-in 360ms cubic-bezier(0.22, 1, 0.36, 1)
+      both !important;
+    will-change: transform, opacity;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #urlbar[breakout][breakout-extend]:popover-open {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.97 !important;
+  }
+}
+
+#urlbar > .urlbar-background,
+#urlbar > .urlbar-input-container {
+    --toolbarbutton-border-radius: calc(var(--urlbar-min-height) / 2);
+}
+
+#urlbar > .urlbar-input-container {
+    --urlbar-icon-border-radius: calc(var(--toolbarbutton-border-radius) - 1px);
+}
+
+#urlbar:not([focused]) .urlbar-input {
+    text-align: center !important;
+}
+
+#urlbar:not([breakout][breakout-extend]) .urlbar-input {
+    text-align: center !important;
+}
+
+/*------------------------------------------------*/
+/* Change URL Bar background color */
+@media (prefers-color-scheme: dark) {
+  #urlbar > .urlbar-background {
+    background-color: var(--shina-urlbar-background) !important;
+  }
+}
+
+@media (prefers-color-scheme: light)  {
+  #urlbar > .urlbar-background {
+    background-color: var(--shina-urlbar-background) !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+.urlbarView-results > .urlbarView-row[selected] {
+  background-color: #424242 !important;
+}
+}
+
+@media (prefers-color-scheme: light)  {
+.urlbarView-results > .urlbarView-row[selected] {
+  background-color: #e8e8e8 !important;
+}
+}
+
+
+/*------------------------------------------------*/
+/* Hide and Hover icons in URL Bar */
+
+#nav-bar:not([customizing="true"]):not(.searchButton)
+  > #nav-bar-customization-target
+  > #urlbar-container:not(:hover)
+  > #urlbar:not([focused])
+  > .urlbar-input-container
+  > #page-action-buttons
+  .urlbar-page-action {
+  opacity: 0;
+  transition-delay: 500ms;
+}
+
+#nav-bar:not([customizing="true"]):not(.searchButton)
+  > #nav-bar-customization-target
+  > #urlbar-container:not(:hover)
+  > #urlbar:not([focused])
+  > .urlbar-input-container
+  > #identity-box
+  > #identity-permission-box:not([open]) {
+  opacity: 0;
+  transition-delay: 500ms;
+}
+
+#page-action-buttons .urlbar-page-action,
+#identity-permission-box,
+#notification-popup-box .notification-anchor-icon {
+  transition: opacity 0.2s ease;
+}
+
+#urlbar #identity-icon-box,
+#urlbar #identity-permission-box {
+  opacity: 0 !important;
+  margin-inline-start: calc(-16px - 2 * var(--urlbar-icon-padding));
+  transition: margin-inline-start 100ms linear, opacity 200ms linear;
+}
+
+#urlbar #identity-box.notSecureText #identity-icon-box {
+  margin-inline-start: initial !important;
+  opacity: 1 !important;
+  color: #e36f6f !important;
+}
+
+#urlbar #identity-box.extensionPage #identity-icon-box {
+  margin-inline-start: initial !important;
+  opacity: 1 !important;
+}
+
+#identity-box:hover #identity-icon-box,
+#identity-box:hover #identity-permission-box,
+#identity-box #identity-permission-box[open="true"] {
+  opacity: 1 !important;
+  margin-inline-start: initial !important;
+}
+
+#urlbar > .urlbar-input-container > .urlbar-input-box {
+  padding-inline-start: 2px !important;
+}
+
+#identity-box:hover ~ .urlbar-input-box > .urlbar-input {
+  mask-image: linear-gradient(to right, transparent, black 3ch) !important;
+}
+
+#page-action-buttons {
+  padding-inline-start: 8px;
+}
+
+#page-action-buttons .urlbar-page-action {
+  margin-inline-end: calc(-16px - 2 * var(--urlbar-icon-padding));
+  opacity: 0;
+  transition: margin-inline-end 100ms linear, opacity 200ms linear;
+}
+
+#page-action-buttons:hover > .urlbar-page-action,
+.urlbar-page-action[open],
+.urlbar-page-action[open] ~ .urlbar-page-action {
+  opacity: 1;
+  margin-inline-end: 0px !important;
+}
+
+#identity-box.chromeUI #identity-icon-box {
+  opacity: 1 !important;
+  margin-inline-start: initial;
+}
+
+#identity-box.chromeUI::after,
+#identity-box.chromeUI:hover::after {
+  opacity: 0 !important;
+}
+
+#page-action-buttons:not(:hover) #translations-button[translationsactive="true"]:not([open]) {
+  visibility:collapse !important;
+}
+
+
+/*------------------------------------------------*/
+/* Create visual dots on both sides */
+#identity-box::after,
+#page-action-buttons::before {
+  position: relative;
+  content: "•••";
+  pointer-events: none;
+  transition: opacity 100ms ease;
+  align-self: center;
+  font-size: 0.7em;
+}
+
+#identity-box::after,
+#page-action-buttons::before {
+  opacity: 0.2;
+}
+
+#identity-box::after {
+  transform: rotate(90deg);
+  left: 4px;
+}
+
+#page-action-buttons::before {
+  transform: rotate(-90deg);
+  right: 4px;
+}
+
+#identity-box:hover::after,
+#page-action-buttons:hover::before {
+  opacity: 0.2 !important;
+  transition: opacity 50ms ease;
+  pointer-events: none;
+}
+
+#identity-box[pageproxystate="invalid"]::after,
+#urlbar > .urlbar-input-container[pageproxystate="invalid"]
+  > #page-action-buttons::before {
+  opacity: 0 !important;
+  transition: opacity 50ms ease;
+}
+
+/* Linux changes for visual dots */
+@media (-moz-platform: linux) {
+  #identity-box::after,
+  #page-action-buttons::before {
+    content: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="utf-8"%3F><svg fill="%23FFFFFF" width="11px" height="11px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 16c0 2.347-1.903 4.25-4.25 4.25s-4.25-1.903-4.25-4.25c0-2.347 1.903-4.25 4.25-4.25s4.25 1.903 4.25 4.25zM20.25 27c0 2.347-1.903 4.25-4.25 4.25s-4.25-1.903-4.25-4.25c0-2.347 1.903-4.25 4.25-4.25s4.25 1.903 4.25 4.25zM20.25 5c0 2.347-1.903 4.25-4.25 4.25s-4.25-1.903-4.25-4.25c0-2.347 1.903-4.25 4.25-4.25s4.25 1.903 4.25 4.25z"></path></svg>');
+    transform: none;
+    font-size: unset;
+  }
+
+  #page-action-buttons::before {
+    right: 2px;
+  }
+
+  #identity-box::after {
+    left: 2px;
+  }
+}
+
+#identity-box[pageproxystate="valid"].notSecureText > .identity-box-button,
+#identity-box[pageproxystate="valid"].extensionPage > .identity-box-button,
+#identity-box[pageproxystate="valid"].chromeUI > .identity-box-button,
+#urlbar-label-box,
+#urlbar-zoom-button {
+  background-color: var(--firefoxcss-item-bg-color) !important;
+}
+
+#urlbar-zoom-button:hover {
+  background-color: var(--firefoxcss-urlbar-zoom-button) !important;
+}
+
+#urlbar > .urlbar-input-container #identity-box > .identity-box-button,
+#tracking-protection-icon-container,
+.urlbar-go-button,
+#page-action-buttons .urlbar-page-action,
+#notification-popup-box {
+  border-radius: 8px !important;
+}
+
+.urlbar-go-button,
+#tracking-protection-icon-container
+{
+  display: none !important;
+}
+
+
+
+/*============================================================================================*/
+/* BOOKMARK BAR */
+
+/*
+ * Firefox's browser-area layout paints the page/tabbox above toolbox content
+ * unless an overlaying toolbox opts into its dedicated layer. Current Floorp
+ * uses this token for its own expand-on-hover bookmarks implementation.
+ */
+#navigator-toolbox {
+    --browser-area-z-index-toolbox: 4;
+}
+
+/* Variables for toolbar & bookmark attributes */
+:root {
+    --uc-bm-height: 24px;
+    --uc-bm-padding: 6px;
+}
+
+/* Style for Personal Toolbar */
+#PersonalToolbar {
+    position: relative !important;
+    padding: 1px 6px !important;
+}
+
+/* Additional padding for touch density */
+:root[uidensity="touch"] #PersonalToolbar {
+    --uc-bm-padding: 6px;
+}
+
+/* Fold the enabled toolbar out of the layout until the toolbox is hovered. */
+#PersonalToolbar:not([customizing]) {
+    margin-bottom: calc(2px - var(--uc-bm-height) - 2 * var(--uc-bm-padding)) !important;
+    transform: rotateX(90deg) !important;
+    transform-origin: top !important;
+    transition: transform 0.1s ease-in-out 0.6s !important;
+    z-index: 2 !important;
+}
+
+/* Center the bookmark row, matching Shina Fox's original preview and PR #39. */
+#PlacesToolbarItems {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* Bookmark item padding */
+#PlacesToolbarItems > .bookmark-item {
+    padding-block: var(--uc-bm-padding) !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+}
+
+/*
+ * Reveal only from the URL capsule. Once revealed, keep the toolbar open while
+ * the pointer moves onto it so its bookmarks remain usable.
+ */
+#navigator-toolbox:has(#urlbar:hover, #PersonalToolbar:hover)
+  > #PersonalToolbar:not([customizing]) {
+    transform: rotateX(0) !important;
+    transition-delay: 100ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #PersonalToolbar:not([customizing]) {
+    transition-duration: 0ms !important;
+  }
+}
+
+/* Fix the white line above the bookmarks bar when it's empty */
+#personal-toolbar-empty {
+  padding: 2px !important;
+}
+
+/*------------------------------------------------*/
+/* Make it good in transparent bg */
+
+@media (prefers-color-scheme: dark) {
+#PlacesToolbarItems > * {
+  background: #333333 !important;
+}
+
+#PlacesToolbarItems > *:hover {
+  background: #555555 !important;
+}
+}
+
+@media (prefers-color-scheme: light)  {
+#PlacesToolbarItems > * {
+  background: #cccccc !important;
+}
+
+#PlacesToolbarItems > *:hover {
+  background: #eeeeee !important;
+}
+}
+
+
+
+/*============================================================================================*/
+/* FIREFOX EXTENSION SIDEBAR (SIDEBERY) */
+
+/*
+ * Sidebery keeps Firefox's legacy extension-sidebar host. The UUID below is
+ * Sidebery's stable extension ID; keeping it explicit prevents every other
+ * extension sidebar from unexpectedly becoming an overlay.
+ */
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
+  --sidebar-rail-width: 40px;
+  --sidebar-frame-width: calc(var(--sidebar-rail-width) + 1px);
+  --sidebar-hover-width: min(512px, calc(100vw - 64px));
+  position: relative;
+  min-width: var(--sidebar-frame-width) !important;
+  width: var(--sidebar-frame-width) !important;
+  max-width: var(--sidebar-frame-width) !important;
+  margin-inline: 5px 0 !important;
+  overflow: visible !important;
+  /* Gecko's normal sidebar layer is below the tabbox. Use its purpose-built
+   * hover-overlay layer so the expanded Sidebery browser paints above pages. */
+  z-index: var(--browser-area-z-index-sidebar-expand-on-hover, 4) !important;
+}
+
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"][sidebar-positionend] {
+  margin-inline: 0 5px !important;
+}
+
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+  > .sidebar-browser-stack {
+  overflow: visible !important;
+}
+
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+  > .sidebar-browser-stack
+  > #sidebar {
+  box-sizing: border-box !important;
+  min-width: var(--sidebar-frame-width) !important;
+  max-width: none !important;
+  transition: min-width 200ms ease-in-out 0.3s !important;
+  will-change: min-width;
+}
+
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:is(:hover, :focus-within)
+  > .sidebar-browser-stack
+  > #sidebar {
+  min-width: var(--sidebar-hover-width) !important;
+  transition-delay: 0.1s !important;
+}
+
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
+  opacity: 0.9;
+}
+
+/* Hide the extension sidebar header and splitter. */
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+  #sidebar-header,
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+  + #sidebar-splitter {
+  display: none !important;
+}
+
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+  #sidebar {
+  border-radius: 15px !important;
+  margin-block: var(--shina-frame-top-gap) var(--shina-frame-edge-gap) !important;
+  margin-inline: 0 !important;
+  border: 3px solid var(--shina-surface-border) !important;
+  transition: border-color 0.3s ease, min-width 0.2s ease-in-out !important;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+#sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]
+  #sidebar:hover {
+  border-color: var(--shina-surface-border-hover) !important;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+/*============================================================================================*/
+/* FLOORP PANEL SIDEBAR */
+
+/* Floorp 12 renamed every sidebar2-* node to panel-sidebar-*. */
+#panel-sidebar-splitter {
+  appearance: none !important;
+  min-width: 6px !important;
+  width: 6px !important;
+  opacity: 0.25;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+#panel-sidebar-splitter:hover {
+  opacity: 1;
+  background-color: color-mix(in srgb, currentColor 18%, transparent) !important;
+}
+
+#panel-sidebar-header {
+  height: 0.5em !important;
+  max-height: 0.5em !important;
+  min-height: 0.5em !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  transition: max-height 0.3s ease-in-out, min-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+#panel-sidebar-header:is(:hover, :focus-within) {
+  height: var(--panel-sidebar-header-height, 38px) !important;
+  max-height: var(--panel-sidebar-header-height, 38px) !important;
+  min-height: var(--panel-sidebar-header-height, 38px) !important;
+  opacity: 1 !important;
+}
+
+#panel-sidebar-browser-box {
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  border-radius: 15px !important;
+  margin-block: var(--shina-frame-top-gap) var(--shina-frame-edge-gap) !important;
+  margin-inline: 10px !important;
+  border: 3px solid var(--shina-surface-border) !important;
+  transition: border-color 0.3s ease;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+#panel-sidebar-browser-box:hover {
+  border-color: var(--shina-surface-border-hover) !important;
+  box-shadow: var(--shina-surface-shadow-soft);
+}
+
+#panel-sidebar-browser-box > .sidebar-panel-browser {
+  border-radius: 12px !important;
+}
+
+#panel-sidebar-box[data-floating="true"] #panel-sidebar-browser-box {
+  margin: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#panel-sidebar-select-box {
+  box-sizing: border-box !important;
+  align-items: center !important;
+  background-color: transparent !important;
+  border-radius: 15px !important;
+  margin-block: var(--shina-frame-top-gap) var(--shina-frame-edge-gap) !important;
+  /* Active Floorp layout: no extra gap on the webpage-facing (left) edge. */
+  margin-inline: 0 8px !important;
+  border: 2px solid var(--shina-surface-border) !important;
+  transition: border-color 0.3s ease;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+/*
+ * Keep the extra clearance only against the physical window edge. Removing it
+ * from the webpage-facing edge makes the right gap match Sidebery on the left.
+ */
+#browser:has(> #panel-sidebar-box[data-floating-splitter-side="start"])
+  > #panel-sidebar-select-box {
+  margin-inline: 0 8px !important;
+}
+
+#browser:has(> #panel-sidebar-box[data-floating-splitter-side="end"])
+  > #panel-sidebar-select-box {
+  margin-inline: 8px 0 !important;
+}
+
+#panel-sidebar-select-box:hover {
+  border-color: var(--shina-surface-border-hover) !important;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+:is(.panel-sidebar-panel, .panel-sidebar-icon, .panel-sidebar-actions) {
+  border-radius: 10px !important;
+}
+
+/*============================================================================================*/
+/* MAIN BROWSER */
+
+/* Browser Border */
+
+:root:not([sizemode="fullscreen"]):not([inFullscreen]):not([inDOMFullscreen])
+  #tabbrowser-tabpanels
+  > :is(.browserSidebarContainer, .split-view-panel)
+  > .browserContainer {
+  box-sizing: border-box !important;
+  overflow: clip !important;
+  border-radius: 15px !important;
+  margin: var(--shina-frame-top-gap) var(--shina-frame-edge-gap)
+    var(--shina-frame-edge-gap) !important;
+  border: 3px solid var(--shina-surface-border) !important;
+  transition: border-color 0.3s ease;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+:root:not([sizemode="fullscreen"]):not([inFullscreen]):not([inDOMFullscreen])
+  #tabbrowser-tabpanels
+  > :is(.browserSidebarContainer, .split-view-panel)
+  > .browserContainer:hover {
+  border-color: var(--shina-surface-border-hover) !important;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+/* Keep split-view panes useful without giving up the framed-page effect. */
+:root:not([sizemode="fullscreen"]):not([inFullscreen]):not([inDOMFullscreen])
+  #tabbrowser-tabpanels[splitview]
+  > .split-view-panel
+  > .browserContainer {
+  margin: var(--shina-frame-top-gap) 8px 8px !important;
+}
+
+/*============================================================================================*/
+/* FIND BAR */
+
+/* CTRL+F Search Bar Border */
+
+.browserContainer > findbar {
+  border-radius: 15px !important;
+  margin: 0px 15px 0px 15px !important;
+  border: 3px solid var(--shina-surface-border) !important;
+  transition: border-color 0.3s ease !important;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+.browserContainer > findbar:hover {
+  border-color: var(--shina-surface-border-hover) !important;
+  box-shadow: var(--shina-surface-shadow);
+}
+
+/*------------------------------------------------*/
+/* Text in the center */
+.browserContainer > findbar .findbar-textbox  {
+  border-radius: 10px !important;
+  text-align: center  !important;
+}
+
+} /* @-moz-document browser.xhtml */

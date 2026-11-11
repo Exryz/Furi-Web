@@ -1,0 +1,128 @@
+{
+  "version": 3,
+  "background": {
+    "id": "default-colour",
+    "key": "background/colour",
+    "colour": "#070b16",
+    "display": {
+      "blur": 0,
+      "luminosity": 0
+    }
+  },
+  "focus": false,
+  "widget/frieren-time": {
+    "id": "frieren-time",
+    "key": "widget/time",
+    "order": 0,
+    "display": {
+      "position": "middleCentre"
+    }
+  },
+  "data/frieren-time": {
+    "hour12": true,
+    "mode": "digital",
+    "showDate": true,
+    "showSeconds": true
+  },
+  "widget/frieren-search": {
+    "id": "frieren-search",
+    "key": "widget/search",
+    "order": 1,
+    "display": {
+      "position": "middleCentre"
+    }
+  },
+  "data/frieren-search": {
+    "engine": "google",
+    "placeholder": "Type to search"
+  },
+  "widget/frieren-links": {
+    "id": "frieren-links",
+    "key": "widget/links",
+    "order": 2,
+    "display": {
+      "position": "middleCentre"
+    }
+  },
+  "data/frieren-links": {
+    "columns": 4,
+    "links": [
+      {
+        "name": "youtube",
+        "url": "https://www.youtube.com"
+      },
+      {
+        "name": "netflix",
+        "url": "https://www.netflix.com"
+      },
+      {
+        "name": "miruro",
+        "url": "https://miruro.tv"
+      },
+      {
+        "name": "1shows",
+        "url": "https://1shows.org"
+      },
+      {
+        "name": "discord",
+        "url": "https://discord.com"
+      },
+      {
+        "name": "facebook",
+        "url": "https://www.facebook.com"
+      },
+      {
+        "name": "instagram",
+        "url": "https://www.instagram.com"
+      },
+      {
+        "name": "spotify",
+        "url": "https://open.spotify.com"
+      },
+      {
+        "name": "gmail",
+        "url": "https://mail.google.com"
+      },
+      {
+        "name": "outlook",
+        "url": "https://outlook.live.com"
+      },
+      {
+        "name": "reddit",
+        "url": "https://www.reddit.com"
+      },
+      {
+        "name": "notion",
+        "url": "https://notion.so"
+      },
+      {
+        "name": "github",
+        "url": "https://github.com"
+      },
+      {
+        "name": "figma",
+        "url": "https://www.figma.com"
+      },
+      {
+        "name": "claude",
+        "url": "https://claude.ai"
+      },
+      {
+        "name": "workday",
+        "url": "https://workday.com"
+      }
+    ],
+    "visible": true
+  },
+  "widget/frieren-css": {
+    "id": "frieren-css",
+    "key": "widget/css",
+    "order": 3,
+    "display": {
+      "position": "middleCentre"
+    }
+  },
+  "data/frieren-css": {
+    "input": "@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&display=swap');\n:root {\n  --bp: #7fc3fd;\n  --bd: rgba(127,195,253,0.85);\n  --bg: rgba(127,195,253,0.4);\n  --bgl: rgba(12,17,34,0.68);\n  --bb: rgba(127,195,253,0.3);\n  --fn: 'JetBrains Mono', monospace;\n  --sw: min(950px, 94vw);\n  --cd: 80s;\n  --cg: linear-gradient(0deg, rgba(10,15,30,0.92), rgba(10,15,30,0.2) 40%, transparent);\n  --w1: url('https://images6.alphacoders.com/136/thumb-1920-1369354.jpeg');\n  --w2: url('https://images7.alphacoders.com/141/thumb-1920-1414665.png');\n  --w3: url('https://images.alphacoders.com/135/thumb-1920-1354383.jpeg');\n  --w4: url('https://images4.alphacoders.com/141/thumb-1920-1414668.png');\n  --w5: url('https://images.alphacoders.com/135/thumb-1920-1358237.jpeg');\n  --w6: url('https://images5.alphacoders.com/141/thumb-1920-1414677.png');\n  --w7: url('https://images8.alphacoders.com/135/thumb-1920-1354384.png');\n  --w8: url('https://images3.alphacoders.com/141/thumb-1920-1414667.png');\n  --w9: url('https://images.alphacoders.com/135/thumb-1920-1357998.jpeg');\n  --w10: url('https://images4.alphacoders.com/141/thumb-1920-1414653.png');\n}\nbody, .Widgets, .Time, .Search input, .Links a, .Weather {\n  font-family: var(--fn) !important;\n}\n.Overlay { background: rgba(7,11,22,0.45) !important; }\n.Greeting { display: none !important; }\n\n.Time, .Time * { color: var(--bp) !important; }\n.Time { text-align: center !important; margin-bottom: 1.25rem !important; }\n.Time hr { border: 0 !important; border-top: 2px solid var(--bp) !important; max-width: var(--sw) !important; margin: 0.75rem auto !important; opacity: 0.85 !important; box-shadow: 0 0 8px var(--bg) !important; }\n.Time h3, .Time .date, .Time small {\n  font-size: 1.15rem !important; font-weight: 400 !important; letter-spacing: 0.16em !important;\n  color: var(--bp) !important; text-shadow: 0 0 12px var(--bg), 0 2px 10px rgba(0,0,0,0.8) !important;\n  margin: 0.4rem auto !important; display: block !important; opacity: 0.95 !important;\n}\n.Time h1, .Time .Digital, .Time [class*=\"digital\"] {\n  font-size: 5rem !important; font-weight: 300 !important; letter-spacing: 0.16em !important;\n  color: var(--bp) !important; text-shadow: 0 0 18px var(--bg), 0 2px 14px rgba(0,0,0,0.85) !important;\n  margin: 0 !important; line-height: 1.1 !important;\n}\n.Time span { color: var(--bp) !important; letter-spacing: 0.14em !important; }\n\n.Search {\n  display: flex !important; flex-direction: column !important; align-items: center !important;\n  width: 100% !important; margin: 0 auto 1.6rem !important; position: relative !important;\n}\n.Search::before, .Search::after {\n  content: '' !important; box-sizing: border-box !important;\n  width: var(--sw) !important; height: 340px !important;\n  border: 1px solid var(--bb) !important; border-radius: 16px !important;\n  background-clip: padding-box !important; background-position: center !important;\n  background-size: cover !important; background-repeat: no-repeat !important;\n}\n.Search::before {\n  display: block !important; margin: 0 auto 1.5rem !important;\n  box-shadow: 0 12px 35px rgba(0,0,0,0.65) !important;\n  animation: xfadeA var(--cd, 80s) infinite !important;\n}\n.Search::after {\n  position: absolute !important; top: 0 !important; left: 0 !important; right: 0 !important;\n  margin: 0 auto !important; pointer-events: none !important;\n  animation: xfadeB var(--cd, 80s) infinite ease-in-out !important;\n}\n.Search form { width: var(--sw) !important; max-width: var(--sw) !important; margin: 0 auto !important; }\n.Search input {\n  width: 100% !important; height: 44px !important; box-sizing: border-box !important;\n  font-size: 0.9rem !important; letter-spacing: 0.08em !important; text-align: center !important;\n  color: #f1f7ff !important; background: var(--bgl) !important;\n  backdrop-filter: blur(14px) !important;\n  border: 1px solid var(--bb) !important; border-radius: 9999px !important;\n  padding: 0 1.5rem !important; outline: none !important; box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;\n  transition: all 0.25s ease !important;\n}\n.Search input::placeholder { color: var(--bd) !important; opacity: 0.75 !important; letter-spacing: 0.08em !important; }\n.Search input:focus {\n  border-color: var(--bp) !important; box-shadow: 0 0 20px rgba(127,195,253,0.4), 0 4px 20px rgba(0,0,0,0.5) !important;\n  background: rgba(14,21,42,0.85) !important;\n}\n\n.Links {\n  display: inline-grid !important; grid-template-columns: repeat(4, auto) !important;\n  justify-content: center !important; justify-items: start !important;\n  column-gap: 3.5rem !important; row-gap: 0.75rem !important; width: auto !important;\n  max-width: var(--sw) !important; margin: 0 auto !important; padding: 0 !important;\n}\n.Links a {\n  display: inline-flex !important; align-items: center !important;\n  font-size: 0.92rem !important; letter-spacing: 0.06em !important; color: var(--bd) !important;\n  text-decoration: none !important; text-transform: lowercase !important; background: transparent !important;\n  border: none !important; padding: 0.2rem 0 !important; transition: all 0.2s ease !important;\n}\n.Links a img, .Links a svg { display: none !important; }\n.Links a::before { content: '>\\00a0' !important; color: var(--bp) !important; font-weight: 600 !important; opacity: 0.85 !important; }\n.Links a:hover { color: #fff !important; transform: translateX(4px) !important; text-shadow: 0 0 10px rgba(127,195,253,0.6) !important; }\n.Links a:hover::before { opacity: 1 !important; color: #fff !important; }\n\n.Weather { color: var(--bp) !important; letter-spacing: 0.06em !important; text-shadow: 0 0 8px var(--bg) !important; }\n.Weather .summary { display: flex !important; align-items: center !important; justify-content: flex-end !important; gap: 0.45rem !important; }\n.Weather .summary svg, .Weather .summary i, .Weather [class*=\"icon\"] { order: -1 !important; margin-right: 0.25rem !important; }\n.Weather .temperature { font-size: 1.6rem !important; font-weight: 400 !important; }\n.Weather .summary span:not(.temperature) { font-size: 0.9rem !important; color: var(--bd) !important; opacity: 0.85 !important; }\n.Weather dt { color: var(--bp) !important; }\n.Weather dd { color: var(--bd) !important; font-size: 0.8rem !important; opacity: 0.8 !important; }\n\n@keyframes xfadeA {\n  0%, 15% { background-image: var(--cg), var(--w1); }\n  15.01%, 35% { background-image: var(--cg), var(--w3); }\n  35.01%, 55% { background-image: var(--cg), var(--w5); }\n  55.01%, 75% { background-image: var(--cg), var(--w7); }\n  75.01%, 95% { background-image: var(--cg), var(--w9); }\n  95.01%, 100% { background-image: var(--cg), var(--w1); }\n}\n\n@keyframes xfadeB {\n  0%, 8.2% { opacity: 0; background-image: var(--cg), var(--w2); }\n  10%, 18.2% { opacity: 1; background-image: var(--cg), var(--w2); }\n  20%, 24% { opacity: 0; background-image: var(--cg), var(--w2); }\n  24.01%, 28.2% { opacity: 0; background-image: var(--cg), var(--w4); }\n  30%, 38.2% { opacity: 1; background-image: var(--cg), var(--w4); }\n  40%, 44% { opacity: 0; background-image: var(--cg), var(--w4); }\n  44.01%, 48.2% { opacity: 0; background-image: var(--cg), var(--w6); }\n  50%, 58.2% { opacity: 1; background-image: var(--cg), var(--w6); }\n  60%, 64% { opacity: 0; background-image: var(--cg), var(--w6); }\n  64.01%, 68.2% { opacity: 0; background-image: var(--cg), var(--w8); }\n  70%, 78.2% { opacity: 1; background-image: var(--cg), var(--w8); }\n  80%, 84% { opacity: 0; background-image: var(--cg), var(--w8); }\n  84.01%, 88.2% { opacity: 0; background-image: var(--cg), var(--w10); }\n  90%, 98.2% { opacity: 1; background-image: var(--cg), var(--w10); }\n  100% { opacity: 0; background-image: var(--cg), var(--w10); }\n}"
+  }
+}
