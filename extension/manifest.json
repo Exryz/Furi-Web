@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Sousou no Frieren Startpage",
   "version": "1.0.0",
-  "description": "Frieren Blue Moon-weed startpage with live Spotify desktop player",
+  "description": "Sousou no Frieren Blue Moon-weed startpage for Furi-Web",
   "browser_specific_settings": {
     "gecko": {
       "id": "frieren-startpage@kisek.local"
@@ -13,8 +13,6 @@
   },
   "permissions": [
     "storage",
-    "https://api.spotify.com/*",
-    "https://accounts.spotify.com/*",
     "https://api.open-meteo.com/*"
   ],
   "web_accessible_resources": [

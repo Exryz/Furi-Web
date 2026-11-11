@@ -11,7 +11,7 @@
   <!-- Fullpage Background Wallpaper (Slightly Blurred) -->
   <div class="bg-wallpaper"></div>
 
-  <!-- Weather Widget (Top Right: Sun icon before text) -->
+  <!-- Weather Widget -->
   <div class="weather-widget">
     <div class="weather-summary">
       <span class="weather-icon" id="weather-icon">☼</span>
@@ -25,47 +25,38 @@
   <!-- Main Center Stack -->
   <div class="stage">
 
-    <!-- 1. Spotify Player Capsule (Right Above the Time) -->
-    <div id="spotify-player">
-      <!-- Injected by spotify.js -->
-    </div>
-
-    <!-- 2. Time & Date Synchronized -->
+    <!-- 1. Time & Date -->
     <div class="time-widget">
       <div class="time-digits" id="clock-digits">00:00:00</div>
       <div class="time-date" id="clock-date">Thursday, October 16</div>
       <hr class="time-divider">
     </div>
 
-    <!-- 3. Central Artwork Card (+25% Bigger: 950px x 340px) -->
+    <!-- 2. Central Artwork Card -->
     <div class="banner-stage">
       <div class="banner-layer-a"></div>
       <div class="banner-layer-b"></div>
     </div>
 
-    <!-- 4. Search Capsule -->
+    <!-- 3. Search Capsule -->
     <form class="search-form" id="search-form">
       <input type="text" class="search-input" id="search-input" placeholder="Type to search" autocomplete="off" spellcheck="false" autofocus>
     </form>
 
-    <!-- 5. 4-Column Quick Navigation Links Grid (Centered Terminal Cluster) -->
+    <!-- 4. Quick Navigation Links Grid -->
     <div class="links-grid">
-      <!-- Row 1 -->
       <a href="https://www.youtube.com">youtube</a>
       <a href="https://www.netflix.com">netflix</a>
       <a href="https://miruro.tv">miruro</a>
       <a href="https://1shows.org">1shows</a>
-      <!-- Row 2 -->
       <a href="https://discord.com">discord</a>
       <a href="https://www.facebook.com">facebook</a>
       <a href="https://www.instagram.com">instagram</a>
       <a href="https://open.spotify.com">spotify</a>
-      <!-- Row 3 -->
       <a href="https://mail.google.com">gmail</a>
       <a href="https://outlook.live.com">outlook</a>
       <a href="https://www.reddit.com">reddit</a>
       <a href="https://notion.so">notion</a>
-      <!-- Row 4 -->
       <a href="https://github.com">github</a>
       <a href="https://www.figma.com">figma</a>
       <a href="https://claude.ai">claude</a>
@@ -74,32 +65,6 @@
 
   </div>
 
-  <!-- Spotify Client ID Configuration Modal -->
-  <div class="modal-overlay" id="settings-modal">
-    <div class="modal-box">
-      <h3>✦ Spotify Connect Setup</h3>
-      <p style="margin-bottom:0.4rem;">1. In your Spotify Developer App, add this <b>Redirect URI</b>:</p>
-      <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
-        <input type="text" id="redirect-uri-display" readonly style="margin-bottom:0;font-size:0.75rem;color:#7fc3fd;">
-        <button class="modal-btn modal-btn-save" id="btn-copy-uri" style="white-space:nowrap;padding:0 0.8rem;">Copy</button>
-      </div>
-      <p style="margin-bottom:0.4rem;">2. Paste your 32-character <b>Client ID</b>:</p>
-      <input type="text" id="client-id-input" placeholder="e.g. 4a8b1c..." autocomplete="off">
-      <div class="modal-actions">
-        <button class="modal-btn modal-btn-cancel" id="modal-cancel">Cancel</button>
-        <button class="modal-btn modal-btn-save" id="modal-save">Save & Connect</button>
-      </div>
-      <div style="margin-top:1rem;padding-top:0.8rem;border-top:1px solid rgba(127,195,253,0.15);">
-        <p style="margin-bottom:0.4rem;font-size:0.78rem;opacity:0.8;">Alternative: Paste redirect URL / code manually:</p>
-        <div style="display:flex;gap:0.5rem;">
-          <input type="text" id="manual-code-input" placeholder="Paste URL with ?code=..." style="margin-bottom:0;font-size:0.75rem;">
-          <button class="modal-btn modal-btn-save" id="btn-submit-code" style="white-space:nowrap;padding:0 0.8rem;">Link</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script src="app.js"></script>
-  <script src="spotify.js"></script>
 </body>
 </html>
